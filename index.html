@@ -1,79 +1,185 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Feira Conectada — vitrine digital de produtores, produtos e serviços locais de Novo Horizonte." />
-  <title>Feira Conectada | Início</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body data-page="home">
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="brand" href="index.html" aria-label="Feira Conectada - início">
-        <img src="assets/logo-feira-header.png" alt="Feira Conectada" />
-      </a>
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><span></span><span></span><span></span></button>
-      <nav class="main-nav" id="main-menu" aria-label="Navegação principal">
-        <a class="active" href="index.html">Início</a>
-        <a href="produtores.html">Produtores</a>
-        <a href="vitrine.html">Vitrine</a>
-        <a href="cadastro.html">Como se cadastrar</a>
-        <a href="quem-somos.html">Quem somos</a>
-        <a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a>
-      </nav>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Feira Conectada — vitrine digital de produtores, produtos e serviços locais de Novo Horizonte."
+    />
+    <title>Feira Conectada | Início</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+  </head>
+  <body data-page="home">
+    <header class="site-header">
+      <div class="header-inner container">
+        <a
+          class="brand"
+          href="index.html"
+          aria-label="Feira Conectada - início"
+        >
+          <img src="assets/logo-feira-header.png" alt="Feira Conectada" />
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="main-menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" id="main-menu" aria-label="Navegação principal">
+          <a class="active" href="index.html">Início</a>
+          <a href="produtores.html">Produtores</a>
+          <a href="vitrine.html">Vitrine</a>
+          <a href="cadastro.html">Como se cadastrar</a>
+          <a href="quem-somos.html">Quem somos</a>
+          <a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a>
+        </nav>
+      </div>
+    </header>
 
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="pattern" aria-hidden="true"></div>
-      <div class="hero-inner container">
-        <div class="hero-copy">
-          <p class="eyebrow">NOVO HORIZONTE — SP</p>
-          <h1 id="hero-title">Perto de você.<br><span>Feito por aqui.</span></h1>
-          <p class="hero-description">Uma vitrine virtual para descobrir, comprar e contratar de quem movimenta Novo<br class="desktop-only" /> Horizonte todos os dias.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="vitrine.html">Explorar a vitrine <span aria-hidden="true">→</span></a>
-            <a class="btn btn-outline" href="cadastro.html#formulario">Quero anunciar</a>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="pattern" aria-hidden="true"></div>
+        <div class="hero-inner container">
+          <div class="hero-copy">
+            <p class="eyebrow">NOVO HORIZONTE — SP</p>
+            <h1 id="hero-title">
+              Perto de você.<br /><span>Feito por aqui.</span>
+            </h1>
+            <p class="hero-description">
+              Uma vitrine virtual para descobrir, comprar e contratar de quem
+              movimenta Novo<br class="desktop-only" />
+              Horizonte todos os dias.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="vitrine.html"
+                >Explorar a vitrine <span aria-hidden="true">→</span></a
+              >
+              <a class="btn btn-outline" href="cadastro.html#formulario"
+                >Quero anunciar</a
+              >
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Produtos da feira local">
+            <div class="image-frame">
+              <img
+                src="assets/feira-hero.jpg"
+                alt="Banca de feira com frutas, verduras e legumes"
+              />
+            </div>
+            <div class="business-card">
+              <strong>86</strong><span>negócios locais para<br />conhecer</span>
+            </div>
           </div>
         </div>
-        <div class="hero-visual" aria-label="Produtos da feira local">
-          <div class="image-frame"><img src="assets/feira-hero.jpg" alt="Banca de feira com frutas, verduras e legumes" /></div>
-          <div class="business-card"><strong>86</strong><span>negócios locais para<br>conhecer</span></div>
+      </section>
+
+      <section class="categories-section" aria-labelledby="categories-title">
+        <div class="container">
+          <div class="section-heading-row">
+            <div>
+              <p class="section-kicker">ENCONTRE PELO SEU CAMINHO</p>
+              <h2 id="categories-title">O que você procura hoje?</h2>
+            </div>
+            <a class="section-link" href="vitrine.html"
+              >Ver todos os anúncios <span aria-hidden="true">→</span></a
+            >
+          </div>
+          <div class="category-grid" aria-label="Categorias de anúncios">
+            <a class="category-card" href="vitrine.html?categoria=Comida"
+              ><span class="category-icon icon-spark" aria-hidden="true">✦</span
+              ><span class="category-name">Comida</span
+              ><span class="category-count">24 anúncios</span></a
+            >
+            <a class="category-card" href="vitrine.html?categoria=Artesanato"
+              ><span class="category-icon icon-circle" aria-hidden="true"></span
+              ><span class="category-name">Artesanato</span
+              ><span class="category-count">12 anúncios</span></a
+            >
+            <a class="category-card" href="vitrine.html?categoria=Serviços"
+              ><span class="category-icon icon-bolt" aria-hidden="true">⌁</span
+              ><span class="category-name">Serviços</span
+              ><span class="category-count">16 anúncios</span></a
+            >
+            <a class="category-card" href="vitrine.html?categoria=Roupas"
+              ><span
+                class="category-icon icon-diamond"
+                aria-hidden="true"
+              ></span
+              ><span class="category-name">Roupas</span
+              ><span class="category-count">9 anúncios</span></a
+            >
+            <a class="category-card" href="vitrine.html?categoria=Utilidades"
+              ><span class="category-icon icon-square" aria-hidden="true"></span
+              ><span class="category-name">Utilidades</span
+              ><span class="category-count">18 anúncios</span></a
+            >
+          </div>
         </div>
+      </section>
+
+      <section
+        class="audience-section"
+        aria-label="Caminhos para quem produz e para quem compra"
+      >
+        <article class="audience-card producer-card">
+          <div class="audience-content">
+            <p class="section-kicker">PARA QUEM PRODUZ</p>
+            <h2>
+              Seu espaço na cidade também pode<br class="desktop-only" />
+              estar na internet.
+            </h2>
+            <p>
+              Mostre o que você faz, alcance novas pessoas e mantenha seu<br
+                class="desktop-only"
+              />
+              contato sempre à mão.
+            </p>
+            <a href="cadastro.html"
+              >Criar minha vitrine <span aria-hidden="true">→</span></a
+            >
+          </div>
+        </article>
+        <article class="audience-card buyer-card">
+          <div class="audience-content">
+            <p class="section-kicker">PARA QUEM COMPRA</p>
+            <h2>
+              Descubra o que existe perto da sua<br class="desktop-only" />
+              casa.
+            </h2>
+            <p>
+              Pesquise, filtre e entre em contato direto com quem faz<br
+                class="desktop-only"
+              />
+              acontecer.
+            </p>
+            <a href="produtores.html"
+              >Conhecer produtores <span aria-hidden="true">→</span></a
+            >
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding">
+          <div class="footer-symbol" aria-hidden="true">
+            <span class="footer-dot"></span><span class="tiny-home">⌂</span>
+          </div>
+          <p>A vitrine digital de quem faz Novo Horizonte acontecer.</p>
+        </div>
+        <nav class="footer-links" aria-label="Links do rodapé">
+          <a href="mailto:contato@feiraconectada.com.br">Contato</a
+          ><a href="#">Instagram</a><a href="#">WhatsApp</a>
+        </nav>
+        <p class="footer-copy">© 2026 Feira Conectada</p>
       </div>
-    </section>
-
-    <section class="categories-section" aria-labelledby="categories-title">
-      <div class="container">
-        <div class="section-heading-row">
-          <div><p class="section-kicker">ENCONTRE PELO SEU CAMINHO</p><h2 id="categories-title">O que você procura hoje?</h2></div>
-          <a class="section-link" href="vitrine.html">Ver todos os anúncios <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="category-grid" aria-label="Categorias de anúncios">
-          <a class="category-card" href="vitrine.html?categoria=Comida"><span class="category-icon icon-spark" aria-hidden="true">✦</span><span class="category-name">Comida</span><span class="category-count">24 anúncios</span></a>
-          <a class="category-card" href="vitrine.html?categoria=Artesanato"><span class="category-icon icon-circle" aria-hidden="true"></span><span class="category-name">Artesanato</span><span class="category-count">12 anúncios</span></a>
-          <a class="category-card" href="vitrine.html?categoria=Serviços"><span class="category-icon icon-bolt" aria-hidden="true">⌁</span><span class="category-name">Serviços</span><span class="category-count">16 anúncios</span></a>
-          <a class="category-card" href="vitrine.html?categoria=Roupas"><span class="category-icon icon-diamond" aria-hidden="true"></span><span class="category-name">Roupas</span><span class="category-count">9 anúncios</span></a>
-          <a class="category-card" href="vitrine.html?categoria=Utilidades"><span class="category-icon icon-square" aria-hidden="true"></span><span class="category-name">Utilidades</span><span class="category-count">18 anúncios</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="audience-section" aria-label="Caminhos para quem produz e para quem compra">
-      <article class="audience-card producer-card"><div class="audience-content"><p class="section-kicker">PARA QUEM PRODUZ</p><h2>Seu espaço na cidade também pode<br class="desktop-only" /> estar na internet.</h2><p>Mostre o que você faz, alcance novas pessoas e mantenha seu<br class="desktop-only" /> contato sempre à mão.</p><a href="cadastro.html">Criar minha vitrine <span aria-hidden="true">→</span></a></div></article>
-      <article class="audience-card buyer-card"><div class="audience-content"><p class="section-kicker">PARA QUEM COMPRA</p><h2>Descubra o que existe perto da sua<br class="desktop-only" /> casa.</h2><p>Pesquise, filtre e entre em contato direto com quem faz<br class="desktop-only" /> acontecer.</p><a href="produtores.html">Conhecer produtores <span aria-hidden="true">→</span></a></div></article>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-branding"><div class="footer-symbol" aria-hidden="true"><span class="footer-dot"></span><span class="tiny-home">⌂</span></div><p>A vitrine digital de quem faz Novo Horizonte acontecer.</p></div>
-      <nav class="footer-links" aria-label="Links do rodapé"><a href="mailto:contato@feiraconectada.com.br">Contato</a><a href="#">Instagram</a><a href="#">WhatsApp</a></nav>
-      <p class="footer-copy">© 2026 Feira Conectada</p>
-    </div>
-  </footer>
-  <script src="js/script.js"></script>
-</body>
+    </footer>
+    <script src="js/script.js"></script>
+  </body>
 </html>

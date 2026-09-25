@@ -1,54 +1,216 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Conheça produtores e negócios locais da Feira Conectada." />
-  <title>Feira Conectada | Produtores</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body data-page="produtores">
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="brand" href="index.html"><img src="assets/logo-feira-header.png" alt="Feira Conectada" /></a>
-      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><span></span><span></span><span></span></button>
-      <nav class="main-nav" id="main-menu" aria-label="Navegação principal">
-        <a href="index.html">Início</a><a class="active" href="produtores.html">Produtores</a><a href="vitrine.html">Vitrine</a><a href="cadastro.html">Como se cadastrar</a><a href="quem-somos.html">Quem somos</a><a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="page-hero producers-hero">
-      <div class="pattern" aria-hidden="true"></div>
-      <div class="container page-hero-content">
-        <p class="eyebrow">QUEM FAZ A CIDADE ACONTECER</p>
-        <h1>Produtores locais</h1>
-        <p>Conheça pessoas e negócios de Novo Horizonte que colocam trabalho, cuidado e<br class="desktop-only"> história em cada oferta.</p>
-        <label class="search-box"><span aria-hidden="true">⌕</span><input id="producer-search" type="search" placeholder="Quem ou o que você procura?" autocomplete="off" /></label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Conheça produtores e negócios locais da Feira Conectada."
+    />
+    <title>Feira Conectada | Produtores</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+  </head>
+  <body data-page="produtores">
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="index.html"
+          ><img src="assets/logo-feira-header.png" alt="Feira Conectada"
+        /></a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="main-menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" id="main-menu" aria-label="Navegação principal">
+          <a href="index.html">Início</a
+          ><a class="active" href="produtores.html">Produtores</a
+          ><a href="vitrine.html">Vitrine</a
+          ><a href="cadastro.html">Como se cadastrar</a
+          ><a href="quem-somos.html">Quem somos</a
+          ><a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section class="listing-section producer-listing">
-      <div class="container">
-        <div class="filter-pills" data-filter-group="producers" aria-label="Filtrar produtores">
-          <button class="filter-pill active" type="button" data-filter="Todos">Todos</button><button class="filter-pill" type="button" data-filter="Comida">Comida</button><button class="filter-pill" type="button" data-filter="Artesanato">Artesanato</button><button class="filter-pill" type="button" data-filter="Serviços">Serviços</button><button class="filter-pill" type="button" data-filter="Roupas">Roupas</button><button class="filter-pill" type="button" data-filter="Utilidades">Utilidades</button>
+    <main>
+      <section class="page-hero producers-hero">
+        <div class="pattern" aria-hidden="true"></div>
+        <div class="container page-hero-content">
+          <p class="eyebrow">QUEM FAZ A CIDADE ACONTECER</p>
+          <h1>Produtores locais</h1>
+          <p>
+            Conheça pessoas e negócios de Novo Horizonte que colocam trabalho,
+            cuidado e<br class="desktop-only" />
+            história em cada oferta.
+          </p>
+          <label class="search-box"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              id="producer-search"
+              type="search"
+              placeholder="Quem ou o que você procura?"
+              autocomplete="off"
+          /></label>
         </div>
-        <p class="results-label"><span id="producer-count">6</span> ANUNCIANTES ENCONTRADOS</p>
-        <div class="producer-grid" id="producer-grid">
-          <article class="producer-card-item filterable" data-category="Comida" data-search="Horta da Nena hortaliças manhã temperos cestas estação comida"><img src="assets/produtores/horta-nena.png" alt="Hortaliças da Horta da Nena"><div class="producer-info"><span class="card-category">COMIDA</span><h2>Horta da Nena</h2><p>Hortaliças colhidas pela manhã, temperos e cestas da estação.</p><a href="#">Ver perfil <span>→</span></a></div></article>
-          <article class="producer-card-item filterable" data-category="Comida" data-search="Dona Cida Quitutes bolos pães caseiros receitas gerações comida"><img src="assets/produtores/dona-cida.png" alt="Bolo da Dona Cida Quitutes"><div class="producer-info"><span class="card-category">COMIDA</span><h2>Dona Cida Quitutes</h2><p>Bolos, pães caseiros e receitas que atravessam gerações.</p><a href="#">Ver perfil <span>→</span></a></div></article>
-          <article class="producer-card-item filterable" data-category="Artesanato" data-search="Barro do Horizonte cerâmicas autorais feitas à mão pequenas tiragens artesanato"><img src="assets/produtores/barro-horizonte.png" alt="Cerâmicas do Barro do Horizonte"><div class="producer-info"><span class="card-category">ARTESANATO</span><h2>Barro do Horizonte</h2><p>Cerâmicas autorais feitas à mão em pequenas tiragens.</p><a href="#">Ver perfil <span>→</span></a></div></article>
-          <article class="producer-card-item filterable" data-category="Roupas" data-search="Ateliê Canto Azul peças algodão ajustes bordados personalizados roupas"><img src="assets/produtores/atelie-canto-azul.png" alt="Peça do Ateliê Canto Azul"><div class="producer-info"><span class="card-category">ROUPAS</span><h2>Ateliê Canto Azul</h2><p>Peças em algodão, ajustes e bordados personalizados.</p><a href="#">Ver perfil <span>→</span></a></div></article>
-          <article class="producer-card-item filterable" data-category="Utilidades" data-search="Marcenaria do Zé tábuas bancos pequenos reparos madeira maciça utilidades"><img src="assets/produtores/marcenaria-ze.png" alt="Trabalhos da Marcenaria do Zé"><div class="producer-info"><span class="card-category">UTILIDADES</span><h2>Marcenaria do Zé</h2><p>Tábuas, bancos e pequenos reparos em madeira maciça.</p><a href="#">Ver perfil <span>→</span></a></div></article>
-          <article class="producer-card-item filterable" data-category="Serviços" data-search="Conserta Aqui manutenção eletrodomésticos atendimento domicílio serviços"><img src="assets/produtores/conserta-aqui.png" alt="Profissional do Conserta Aqui"><div class="producer-info"><span class="card-category">SERVIÇOS</span><h2>Conserta Aqui</h2><p>Manutenção de eletrodomésticos com atendimento em domicílio.</p><a href="#">Ver perfil <span>→</span></a></div></article>
+      </section>
+
+      <section class="listing-section producer-listing">
+        <div class="container">
+          <div
+            class="filter-pills"
+            data-filter-group="producers"
+            aria-label="Filtrar produtores"
+          >
+            <button
+              class="filter-pill active"
+              type="button"
+              data-filter="Todos"
+            >
+              Todos</button
+            ><button class="filter-pill" type="button" data-filter="Comida">
+              Comida</button
+            ><button class="filter-pill" type="button" data-filter="Artesanato">
+              Artesanato</button
+            ><button class="filter-pill" type="button" data-filter="Serviços">
+              Serviços</button
+            ><button class="filter-pill" type="button" data-filter="Roupas">
+              Roupas</button
+            ><button class="filter-pill" type="button" data-filter="Utilidades">
+              Utilidades
+            </button>
+          </div>
+          <p class="results-label">
+            <span id="producer-count">6</span> ANUNCIANTES ENCONTRADOS
+          </p>
+          <div class="producer-grid" id="producer-grid">
+            <article
+              class="producer-card-item filterable"
+              data-category="Comida"
+              data-search="Horta da Nena hortaliças manhã temperos cestas estação comida"
+            >
+              <img
+                src="assets/produtores/horta-nena.png"
+                alt="Hortaliças da Horta da Nena"
+              />
+              <div class="producer-info">
+                <span class="card-category">COMIDA</span>
+                <h2>Horta da Nena</h2>
+                <p>
+                  Hortaliças colhidas pela manhã, temperos e cestas da estação.
+                </p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+            <article
+              class="producer-card-item filterable"
+              data-category="Comida"
+              data-search="Dona Cida Quitutes bolos pães caseiros receitas gerações comida"
+            >
+              <img
+                src="assets/produtores/dona-cida.png"
+                alt="Bolo da Dona Cida Quitutes"
+              />
+              <div class="producer-info">
+                <span class="card-category">COMIDA</span>
+                <h2>Dona Cida Quitutes</h2>
+                <p>Bolos, pães caseiros e receitas que atravessam gerações.</p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+            <article
+              class="producer-card-item filterable"
+              data-category="Artesanato"
+              data-search="Barro do Horizonte cerâmicas autorais feitas à mão pequenas tiragens artesanato"
+            >
+              <img
+                src="assets/produtores/barro-horizonte.png"
+                alt="Cerâmicas do Barro do Horizonte"
+              />
+              <div class="producer-info">
+                <span class="card-category">ARTESANATO</span>
+                <h2>Barro do Horizonte</h2>
+                <p>Cerâmicas autorais feitas à mão em pequenas tiragens.</p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+            <article
+              class="producer-card-item filterable"
+              data-category="Roupas"
+              data-search="Ateliê Canto Azul peças algodão ajustes bordados personalizados roupas"
+            >
+              <img
+                src="assets/produtores/atelie-canto-azul.png"
+                alt="Peça do Ateliê Canto Azul"
+              />
+              <div class="producer-info">
+                <span class="card-category">ROUPAS</span>
+                <h2>Ateliê Canto Azul</h2>
+                <p>Peças em algodão, ajustes e bordados personalizados.</p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+            <article
+              class="producer-card-item filterable"
+              data-category="Utilidades"
+              data-search="Marcenaria do Zé tábuas bancos pequenos reparos madeira maciça utilidades"
+            >
+              <img
+                src="assets/produtores/marcenaria-ze.png"
+                alt="Trabalhos da Marcenaria do Zé"
+              />
+              <div class="producer-info">
+                <span class="card-category">UTILIDADES</span>
+                <h2>Marcenaria do Zé</h2>
+                <p>Tábuas, bancos e pequenos reparos em madeira maciça.</p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+            <article
+              class="producer-card-item filterable"
+              data-category="Serviços"
+              data-search="Conserta Aqui manutenção eletrodomésticos atendimento domicílio serviços"
+            >
+              <img
+                src="assets/produtores/conserta-aqui.png"
+                alt="Profissional do Conserta Aqui"
+              />
+              <div class="producer-info">
+                <span class="card-category">SERVIÇOS</span>
+                <h2>Conserta Aqui</h2>
+                <p>
+                  Manutenção de eletrodomésticos com atendimento em domicílio.
+                </p>
+                <a href="#">Ver perfil <span>→</span></a>
+              </div>
+            </article>
+          </div>
+          <p class="empty-state" id="producer-empty" hidden>
+            Nenhum produtor encontrado com esses filtros.
+          </p>
         </div>
-        <p class="empty-state" id="producer-empty" hidden>Nenhum produtor encontrado com esses filtros.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding">
+          <div class="footer-symbol" aria-hidden="true">
+            <span class="footer-dot"></span><span class="tiny-home">⌂</span>
+          </div>
+          <p>A vitrine digital de quem faz Novo Horizonte acontecer.</p>
+        </div>
+        <nav class="footer-links">
+          <a href="mailto:contato@feiraconectada.com.br">Contato</a
+          ><a href="#">Instagram</a><a href="#">WhatsApp</a>
+        </nav>
+        <p class="footer-copy">© 2026 Feira Conectada</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer"><div class="container footer-inner"><div class="footer-branding"><div class="footer-symbol" aria-hidden="true"><span class="footer-dot"></span><span class="tiny-home">⌂</span></div><p>A vitrine digital de quem faz Novo Horizonte acontecer.</p></div><nav class="footer-links"><a href="mailto:contato@feiraconectada.com.br">Contato</a><a href="#">Instagram</a><a href="#">WhatsApp</a></nav><p class="footer-copy">© 2026 Feira Conectada</p></div></footer>
-  <script src="js/script.js"></script>
-</body>
+    </footer>
+    <script src="js/script.js"></script>
+  </body>
 </html>

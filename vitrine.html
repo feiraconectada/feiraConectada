@@ -1,45 +1,211 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Vitrine local de produtos e serviços da Feira Conectada." />
-  <title>Feira Conectada | Vitrine</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body data-page="vitrine">
-  <header class="site-header"><div class="header-inner container"><a class="brand" href="index.html"><img src="assets/logo-feira-header.png" alt="Feira Conectada" /></a><button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><span></span><span></span><span></span></button><nav class="main-nav" id="main-menu"><a href="index.html">Início</a><a href="produtores.html">Produtores</a><a class="active" href="vitrine.html">Vitrine</a><a href="cadastro.html">Como se cadastrar</a><a href="quem-somos.html">Quem somos</a><a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a></nav></div></header>
-
-  <main>
-    <section class="page-hero vitrine-hero">
-      <div class="pattern" aria-hidden="true"></div>
-      <div class="container page-hero-content">
-        <p class="eyebrow">ENCONTRE O QUE É DAQUI</p>
-        <h1>Vitrine local</h1>
-        <p>Produtos e serviços de quem conhece sua cidade como ninguém.</p>
-        <label class="search-box"><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Qual produto ou serviço você precisa?" autocomplete="off" /></label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Vitrine local de produtos e serviços da Feira Conectada."
+    />
+    <title>Feira Conectada | Vitrine</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+  </head>
+  <body data-page="vitrine">
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="index.html"
+          ><img src="assets/logo-feira-header.png" alt="Feira Conectada" /></a
+        ><button
+          class="menu-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="main-menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" id="main-menu">
+          <a href="index.html">Início</a><a href="produtores.html">Produtores</a
+          ><a class="active" href="vitrine.html">Vitrine</a
+          ><a href="cadastro.html">Como se cadastrar</a
+          ><a href="quem-somos.html">Quem somos</a
+          ><a class="nav-cta" href="cadastro.html#formulario">Quero anunciar</a>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section class="listing-section products-listing">
-      <div class="container">
-        <div class="filter-pills" data-filter-group="products">
-          <button class="filter-pill active" type="button" data-filter="Todos">Todos</button><button class="filter-pill" type="button" data-filter="Comida">Comida</button><button class="filter-pill" type="button" data-filter="Artesanato">Artesanato</button><button class="filter-pill" type="button" data-filter="Serviços">Serviços</button><button class="filter-pill" type="button" data-filter="Roupas">Roupas</button><button class="filter-pill" type="button" data-filter="Utilidades">Utilidades</button>
+    <main>
+      <section class="page-hero vitrine-hero">
+        <div class="pattern" aria-hidden="true"></div>
+        <div class="container page-hero-content">
+          <p class="eyebrow">ENCONTRE O QUE É DAQUI</p>
+          <h1>Vitrine local</h1>
+          <p>Produtos e serviços de quem conhece sua cidade como ninguém.</p>
+          <label class="search-box"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              id="product-search"
+              type="search"
+              placeholder="Qual produto ou serviço você precisa?"
+              autocomplete="off"
+          /></label>
         </div>
-        <div class="product-grid" id="product-grid">
-          <article class="product-card filterable" data-category="Comida" data-search="Cesta da semana Horta da Nena legumes verduras comida 42"><img src="assets/vitrine/cesta-semana.png" alt="Cesta da semana com verduras e legumes"><div class="product-meta"><div><span class="card-category">COMIDA</span><h2>Cesta da semana</h2><p>por Horta da Nena</p></div><span class="price-badge">R$ 42</span></div></article>
-          <article class="product-card filterable" data-category="Comida" data-search="Bolo de milho cremoso Dona Cida Quitutes comida 28"><img src="assets/vitrine/bolo-milho.png" alt="Bolo de milho cremoso"><div class="product-meta"><div><span class="card-category">COMIDA</span><h2>Bolo de milho cremoso</h2><p>por Dona Cida Quitutes</p></div><span class="price-badge">R$ 28</span></div></article>
-          <article class="product-card filterable" data-category="Artesanato" data-search="Vaso linha terra Barro do Horizonte cerâmica artesanato 68"><img src="assets/vitrine/vaso-linha-terra.png" alt="Vasos da linha terra"><div class="product-meta"><div><span class="card-category">ARTESANATO</span><h2>Vaso linha terra</h2><p>por Barro do Horizonte</p></div><span class="price-badge">R$ 68</span></div></article>
-          <article class="product-card filterable" data-category="Roupas" data-search="Camisa bordada Ateliê Canto Azul roupa 95"><img src="assets/vitrine/camisa-bordada.png" alt="Camisa bordada"><div class="product-meta"><div><span class="card-category">ROUPAS</span><h2>Camisa bordada</h2><p>por Ateliê Canto Azul</p></div><span class="price-badge">R$ 95</span></div></article>
-          <article class="product-card filterable" data-category="Utilidades" data-search="Tábua de servir Marcenaria do Zé madeira utilidades 74"><img src="assets/vitrine/tabua-servir.png" alt="Tábua de servir em madeira"><div class="product-meta"><div><span class="card-category">UTILIDADES</span><h2>Tábua de servir</h2><p>por Marcenaria do Zé</p></div><span class="price-badge">R$ 74</span></div></article>
-          <article class="product-card filterable" data-category="Serviços" data-search="Reparo em casa Conserta Aqui manutenção serviço consulta"><img src="assets/vitrine/reparo-casa.png" alt="Ferramentas para reparo em casa"><div class="product-meta"><div><span class="card-category">SERVIÇOS</span><h2>Reparo em casa</h2><p>por Conserta Aqui</p></div><span class="price-badge">Sob consulta</span></div></article>
+      </section>
+
+      <section class="listing-section products-listing">
+        <div class="container">
+          <div class="filter-pills" data-filter-group="products">
+            <button
+              class="filter-pill active"
+              type="button"
+              data-filter="Todos"
+            >
+              Todos</button
+            ><button class="filter-pill" type="button" data-filter="Comida">
+              Comida</button
+            ><button class="filter-pill" type="button" data-filter="Artesanato">
+              Artesanato</button
+            ><button class="filter-pill" type="button" data-filter="Serviços">
+              Serviços</button
+            ><button class="filter-pill" type="button" data-filter="Roupas">
+              Roupas</button
+            ><button class="filter-pill" type="button" data-filter="Utilidades">
+              Utilidades
+            </button>
+          </div>
+          <div class="product-grid" id="product-grid">
+            <article
+              class="product-card filterable"
+              data-category="Comida"
+              data-search="Cesta da semana Horta da Nena legumes verduras comida 42"
+            >
+              <img
+                src="assets/vitrine/cesta-semana.png"
+                alt="Cesta da semana com verduras e legumes"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">COMIDA</span>
+                  <h2>Cesta da semana</h2>
+                  <p>por Horta da Nena</p>
+                </div>
+                <span class="price-badge">R$ 42</span>
+              </div>
+            </article>
+            <article
+              class="product-card filterable"
+              data-category="Comida"
+              data-search="Bolo de milho cremoso Dona Cida Quitutes comida 28"
+            >
+              <img
+                src="assets/vitrine/bolo-milho.png"
+                alt="Bolo de milho cremoso"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">COMIDA</span>
+                  <h2>Bolo de milho cremoso</h2>
+                  <p>por Dona Cida Quitutes</p>
+                </div>
+                <span class="price-badge">R$ 28</span>
+              </div>
+            </article>
+            <article
+              class="product-card filterable"
+              data-category="Artesanato"
+              data-search="Vaso linha terra Barro do Horizonte cerâmica artesanato 68"
+            >
+              <img
+                src="assets/vitrine/vaso-linha-terra.png"
+                alt="Vasos da linha terra"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">ARTESANATO</span>
+                  <h2>Vaso linha terra</h2>
+                  <p>por Barro do Horizonte</p>
+                </div>
+                <span class="price-badge">R$ 68</span>
+              </div>
+            </article>
+            <article
+              class="product-card filterable"
+              data-category="Roupas"
+              data-search="Camisa bordada Ateliê Canto Azul roupa 95"
+            >
+              <img
+                src="assets/vitrine/camisa-bordada.png"
+                alt="Camisa bordada"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">ROUPAS</span>
+                  <h2>Camisa bordada</h2>
+                  <p>por Ateliê Canto Azul</p>
+                </div>
+                <span class="price-badge">R$ 95</span>
+              </div>
+            </article>
+            <article
+              class="product-card filterable"
+              data-category="Utilidades"
+              data-search="Tábua de servir Marcenaria do Zé madeira utilidades 74"
+            >
+              <img
+                src="assets/vitrine/tabua-servir.png"
+                alt="Tábua de servir em madeira"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">UTILIDADES</span>
+                  <h2>Tábua de servir</h2>
+                  <p>por Marcenaria do Zé</p>
+                </div>
+                <span class="price-badge">R$ 74</span>
+              </div>
+            </article>
+            <article
+              class="product-card filterable"
+              data-category="Serviços"
+              data-search="Reparo em casa Conserta Aqui manutenção serviço consulta"
+            >
+              <img
+                src="assets/vitrine/reparo-casa.png"
+                alt="Ferramentas para reparo em casa"
+              />
+              <div class="product-meta">
+                <div>
+                  <span class="card-category">SERVIÇOS</span>
+                  <h2>Reparo em casa</h2>
+                  <p>por Conserta Aqui</p>
+                </div>
+                <span class="price-badge">Sob consulta</span>
+              </div>
+            </article>
+          </div>
+          <p class="empty-state" id="product-empty" hidden>
+            Nenhum anúncio encontrado com esses filtros.
+          </p>
         </div>
-        <p class="empty-state" id="product-empty" hidden>Nenhum anúncio encontrado com esses filtros.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding">
+          <div class="footer-symbol" aria-hidden="true">
+            <span class="footer-dot"></span><span class="tiny-home">⌂</span>
+          </div>
+          <p>A vitrine digital de quem faz Novo Horizonte acontecer.</p>
+        </div>
+        <nav class="footer-links">
+          <a href="mailto:contato@feiraconectada.com.br">Contato</a
+          ><a href="#">Instagram</a><a href="#">WhatsApp</a>
+        </nav>
+        <p class="footer-copy">© 2026 Feira Conectada</p>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer"><div class="container footer-inner"><div class="footer-branding"><div class="footer-symbol" aria-hidden="true"><span class="footer-dot"></span><span class="tiny-home">⌂</span></div><p>A vitrine digital de quem faz Novo Horizonte acontecer.</p></div><nav class="footer-links"><a href="mailto:contato@feiraconectada.com.br">Contato</a><a href="#">Instagram</a><a href="#">WhatsApp</a></nav><p class="footer-copy">© 2026 Feira Conectada</p></div></footer>
-  <script src="js/script.js"></script>
-</body>
+    </footer>
+    <script src="js/script.js"></script>
+  </body>
 </html>
