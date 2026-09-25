@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cadastre seu negócio ou serviço na Feira Conectada." />
+  <title>Feira Conectada | Como se cadastrar</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="cadastro">
+  <header class="site-header"><div class="header-inner container"><a class="brand" href="index.html"><img src="assets/logo-feira-header.png" alt="Feira Conectada" /></a><button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu"><span></span><span></span><span></span></button><nav class="main-nav" id="main-menu"><a href="index.html">Início</a><a href="produtores.html">Produtores</a><a href="vitrine.html">Vitrine</a><a class="active" href="cadastro.html">Como se cadastrar</a><a href="quem-somos.html">Quem somos</a><a class="nav-cta" href="#formulario">Quero anunciar</a></nav></div></header>
+
+  <main>
+    <section class="page-hero cadastro-hero">
+      <div class="pattern" aria-hidden="true"></div>
+      <div class="container page-hero-content"><p class="eyebrow">VOCÊ FAZ PARTE DISSO</p><h1>Seu trabalho merece ser<br class="desktop-only"> encontrado.</h1></div>
+    </section>
+
+    <section class="signup-section" id="formulario">
+      <div class="container signup-grid">
+        <div class="signup-copy">
+          <h2>Pequeno negócio, grande presença.</h2>
+          <p>A Feira Conectada abre uma porta digital para quem produz, vende ou presta serviços em Novo Horizonte. Cadastre seu contato e nossa equipe ajuda você a montar sua vitrine.</p>
+          <ol class="steps-list"><li><span>1</span><strong>Preencha seus dados</strong></li><li><span>2</span><strong>Conte o que você oferece</strong></li><li><span>3</span><strong>Publique e comece a ser encontrado</strong></li></ol>
+        </div>
+        <!-- FORMULÁRIO DE CADASTRO: os dados são enviados para feiraconectadanh@gmail.com via FormSubmit. -->
+        <form class="signup-form" id="signup-form" action="https://formsubmit.co/feiraconectadanh@gmail.com" method="POST" novalidate>
+          <!-- Configurações do FormSubmit. O JavaScript preenche _next e _url com a URL atual. -->
+          <input type="hidden" name="_subject" value="Novo cadastro - Feira Conectada">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" id="form-next" value="">
+          <input type="hidden" name="_url" id="form-url" value="">
+          <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <h2>Vamos conversar?</h2>
+          <label>Nome completo<input type="text" name="nome" autocomplete="name" required minlength="3"><small class="field-error"></small></label>
+          <label>Telefone / WhatsApp<input type="tel" name="telefone" autocomplete="tel" required><small class="field-error"></small></label>
+          <label>E-mail<input type="email" name="email" autocomplete="email" required><small class="field-error"></small></label>
+          <button class="submit-btn" type="submit">Quero me cadastrar</button>
+          <p class="form-status" id="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div class="footer-branding"><div class="footer-symbol" aria-hidden="true"><span class="footer-dot"></span><span class="tiny-home">⌂</span></div><p>A vitrine digital de quem faz Novo Horizonte acontecer.</p></div><nav class="footer-links"><a href="mailto:feiraconectadanh@gmail.com">Contato</a><a href="#">Instagram</a><a href="#">WhatsApp</a></nav><p class="footer-copy">© 2026 Feira Conectada</p></div></footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
