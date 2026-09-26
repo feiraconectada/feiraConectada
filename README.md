@@ -55,3 +55,6 @@ Você também pode usar a extensão **Live Server** do VS Code.
 
 Na primeira submissão, o FormSubmit envia um e-mail de ativação para `feiraconectadanh@gmail.com`. Abra esse e-mail e confirme o formulário. Depois da ativação, faça um novo teste.
 
+## Parceria institucional
+
+O rodapé de todas as páginas exibe a logo do Instituto Federal de São Paulo e o texto de parceria com o Câmpus Catanduva. O arquivo da logo está em `assets/logo-ifsp-catanduva.png`.
