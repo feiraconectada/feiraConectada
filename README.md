@@ -1,60 +1,36 @@
-# Feira Conectada — protótipo HTML/CSS/JS
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Protótipo estático desenvolvido a partir das telas de referência enviadas.
+## Getting Started
 
-## Páginas
-- `index.html` — Home
-- `produtores.html` — busca e filtros de produtores
-- `vitrine.html` — busca e filtros de produtos/serviços
-- `cadastro.html` — explicação + formulário de cadastro
-- `quem-somos.html` — apresentação do projeto
-
-## Como executar
-Abra `index.html` no navegador ou sirva a pasta com um servidor local, por exemplo:
+First, run the development server:
 
 ```bash
-python3 -m http.server 8000
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Depois acesse `http://localhost:8000`.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-O projeto usa apenas HTML, CSS e JavaScript puro. Os filtros, busca, menu mobile e validação do formulário funcionam no navegador sem backend.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Envio do formulário
-O formulário de cadastro está configurado para enviar os dados para `feiraconectadanh@gmail.com` usando o FormSubmit. Na primeira utilização, o FormSubmit envia um e-mail de ativação para esse endereço. É necessário confirmar esse e-mail uma vez para liberar os envios.
+## Learn More
 
+To learn more about Next.js, take a look at the following resources:
 
-## Últimas alterações implementadas
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- `quem-somos.html`: o `<body data-page="sobre">` usa um layout flex em `css/style.css` para manter o footer no fim da tela mesmo quando há pouco conteúdo.
-- `cadastro.html`: formulário configurado para enviar Nome, Telefone/WhatsApp e E-mail para `feiraconectadanh@gmail.com`.
-- `js/script.js`: valida os campos e envia o formulário por AJAX para o FormSubmit, mostrando mensagens de sucesso/erro sem sair da página.
-- Na primeira utilização do FormSubmit, verifique a caixa de entrada de `feiraconectadanh@gmail.com` e confirme a ativação solicitada pelo serviço.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Testando o formulário de cadastro
+## Deploy on Vercel
 
-O formulário usa o FormSubmit para encaminhar os dados para o e-mail da Feira Conectada.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-**Não abra `cadastro.html` diretamente como `file://...`.** O FormSubmit informa que o formulário deve ser acessado por um servidor web.
-
-Exemplos para testar localmente:
-
-```bash
-cd feira-conectada-prototipo
-python3 -m http.server 5500
-```
-
-Depois acesse:
-
-```text
-http://localhost:5500/cadastro.html
-```
-
-Você também pode usar a extensão **Live Server** do VS Code.
-
-Na primeira submissão, o FormSubmit envia um e-mail de ativação para `feiraconectadanh@gmail.com`. Abra esse e-mail e confirme o formulário. Depois da ativação, faça um novo teste.
-
-## Parceria institucional
-
-O rodapé de todas as páginas exibe a logo do Instituto Federal de São Paulo e o texto de parceria com o Câmpus Catanduva. O arquivo da logo está em `assets/logo-ifsp-catanduva.png`.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

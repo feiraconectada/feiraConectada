@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0a355f;
+  --navy-deep: #082f55;
+  --navy-text: #052f58;
+
+  --orange: #ff5a1f;
+  --orange-soft: #ff7246;
+
+  --cream: #f7f3ea;
+  --white: #ffffff;
+
+  --pale-blue: #e8f2f5;
+
+  --border: #d5dee7;
+
+  --muted: #8293aa;
+  --body-muted: #5f7590;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hero-pattern {
+  position: relative;
+}
+
+.hero-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(31deg,
+      transparent 49.5%,
+      rgba(110, 155, 194, 0.18) 49.75%,
+      rgba(110, 155, 194, 0.18) 50.08%,
+      transparent 50.32%),
+    linear-gradient(149deg,
+      transparent 49.5%,
+      rgba(110, 155, 194, 0.16) 49.75%,
+      rgba(110, 155, 194, 0.16) 50.08%,
+      transparent 50.32%);
+
+  background-size:
+    200px 145px,
+    200px 145px;
+
+  opacity: 0.55;
+}
+
+.hero-pattern::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: radial-gradient(circle,
+      rgba(121, 173, 214, 0.65) 1.8px,
+      transparent 2px);
+
+  background-size: 198px 148px;
+  background-position: 42px 12px;
+
+  opacity: 0.45;
+}
