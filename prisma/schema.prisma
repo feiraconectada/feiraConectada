@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ======================================================
+// ENUMS
+// ======================================================
+
+enum DocumentType {
+  CPF
+  CNPJ
+}
+
+enum ListingType {
+  PRODUCT
+  SERVICE
+}
+
+enum RegistrationStatus {
+  PENDING
+  CONTACTED
+  APPROVED
+  REJECTED
+}
+
+// ======================================================
+// CATEGORIA
+// ======================================================
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(80)
+  slug      String   @unique @db.VarChar(100)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  producerCategories ProducerCategory[]
+  listings           Listing[]
+
+  @@map("category")
+}
+
+// ======================================================
+// PRODUTOR
+// ======================================================
+model Producer {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(120)
+  slug String @unique @db.VarChar(140)
+
+  responsibleName String? @map("responsible_name") @db.VarChar(120)
+
+  phone String? @db.VarChar(20)
+  email String? @db.VarChar(160)
+
+  hasFixedLocation Boolean @default(false) @map("has_fixed_location")
+  address          String? @db.VarChar(255)
+
+  // Útil para casos como:
+  // "Feirinha e locais variados"
+  locationDescription String? @map("location_description") @db.VarChar(255)
+
+  offeringsSummary String? @map("offerings_summary") @db.Text
+  imageUrl         String? @map("image_url") @db.Text
+
+  // Produtor só aparece no site depois que decidirmos publicar
+  active Boolean @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  privateData              ProducerPrivateData?
+  categories               ProducerCategory[]
+  listings                 Listing[]
+  commercializationMethods ProducerCommercializationMethod[]
+  socialLinks              ProducerSocialLink[]
+  dailyMetrics             ProducerDailyMetric[]
+
+  @@map("producer")
+}
+
+// ======================================================
+// DADOS PRIVADOS DO PRODUTOR
+// CPF / CNPJ
+// ======================================================
+
+model ProducerPrivateData {
+  producerId     Int          @id @map("producer_id")
+  documentType   DocumentType @map("document_type")
+  documentNumber String       @unique @map("document_number") @db.VarChar(14)
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("producer_private_data")
+}
+
+// ======================================================
+// PRODUTOR X CATEGORIA
+// N:N
+// ======================================================
+
+model ProducerCategory {
+  producerId Int @map("producer_id")
+  categoryId Int @map("category_id")
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([producerId, categoryId])
+  @@index([categoryId])
+  @@map("producer_category")
+}
+
+// ======================================================
+// PRODUTO / SERVIÇO
+// ======================================================
+
+model Listing {
+  id Int @id @default(autoincrement())
+
+  producerId Int @map("producer_id")
+  categoryId Int @map("category_id")
+
+  name        String  @db.VarChar(120)
+  description String? @db.Text
+
+  type ListingType
+
+  // null = Sob consulta
+  price Decimal? @db.Decimal(10, 2)
+
+  imageUrl String? @map("image_url") @db.Text
+  active   Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([producerId])
+  @@index([categoryId])
+  @@map("listing")
+}
+
+// ======================================================
+// FORMAS DE COMERCIALIZAÇÃO
+// ======================================================
+
+model CommercializationMethod {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique @db.VarChar(80)
+  slug   String  @unique @db.VarChar(100)
+  active Boolean @default(true)
+
+  producers ProducerCommercializationMethod[]
+
+  @@map("commercialization_method")
+}
+
+// ======================================================
+// PRODUTOR X FORMA DE COMERCIALIZAÇÃO
+// N:N
+// ======================================================
+
+model ProducerCommercializationMethod {
+  producerId Int @map("producer_id")
+  methodId   Int @map("method_id")
+
+  producer Producer                @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  method   CommercializationMethod @relation(fields: [methodId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([producerId, methodId])
+  @@index([methodId])
+  @@map("producer_commercialization_method")
+}
+
+// ======================================================
+// REDES SOCIAIS
+// ======================================================
+
+model ProducerSocialLink {
+  id         Int @id @default(autoincrement())
+  producerId Int @map("producer_id")
+
+  network String @db.VarChar(40)
+  url     String @db.Text
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([producerId, network])
+  @@map("producer_social_link")
+}
+
+// ======================================================
+// MÉTRICAS DIÁRIAS
+// ======================================================
+
+model ProducerDailyMetric {
+  producerId Int      @map("producer_id")
+  date       DateTime @db.Date
+
+  profileViews   Int @default(0) @map("profile_views")
+  whatsappClicks Int @default(0) @map("whatsapp_clicks")
+  socialClicks   Int @default(0) @map("social_clicks")
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([producerId, date])
+  @@index([date])
+  @@map("producer_daily_metric")
+}
+
+// ======================================================
+// SOLICITAÇÃO DE CADASTRO
+// ======================================================
+
+model RegistrationRequest {
+  id Int @id @default(autoincrement())
+
+  name  String @db.VarChar(120)
+  phone String @db.VarChar(20)
+  email String @db.VarChar(160)
+
+  status RegistrationStatus @default(PENDING)
+
+  notes       String?   @db.Text
+  contactedAt DateTime? @map("contacted_at")
+  reviewedAt  DateTime? @map("reviewed_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("registration_request")
+}

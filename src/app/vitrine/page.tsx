@@ -1,20 +1,14 @@
 import ProductsContent from "@/components/vitrine/ProductsContent";
 
-import { products } from "@/data/products";
+import { getProducts } from "@/data/products";
+
+export const dynamic = "force-dynamic";
 
 interface VitrinePageProps {
   searchParams: Promise<{
     categoria?: string | string[];
   }>;
 }
-
-const validCategories = [
-  "Comida",
-  "Artesanato",
-  "Serviços",
-  "Roupas",
-  "Utilidades",
-];
 
 export default async function VitrinePage({ searchParams }: VitrinePageProps) {
   const params = await searchParams;
@@ -23,29 +17,25 @@ export default async function VitrinePage({ searchParams }: VitrinePageProps) {
     ? params.categoria[0]
     : params.categoria;
 
-  const initialCategory =
-    categoryParam && validCategories.includes(categoryParam)
-      ? categoryParam
-      : "Todos";
+  const initialCategory = categoryParam?.trim() || "todos";
+
+  const products = await getProducts();
 
   return (
     <>
-      {/* HERO */}
-      <section className="hero-pattern relative overflow-hidden bg-[#0A355F] text-white">
-        <div className="relative z-10 mx-auto max-w-[1050px] px-6 pb-7 pt-10">
-          <p className="mb-2 text-[10px] font-black uppercase tracking-[1.4px] text-[#FF7246]">
+      <section className="hero-pattern bg-[#0A355F] py-16 text-white">
+        <div className="mx-auto max-w-[1150px] px-6">
+          <p className="mb-3 text-[11px] font-black uppercase tracking-[1.5px] text-[#FF7246]">
             Vitrine local
           </p>
 
-          <h1 className="text-[42px] font-extrabold leading-none tracking-[-2px] sm:text-[54px]">
-            Escolha local.
-            <br />
-            <span className="text-[#FF7246]">Valorize quem faz.</span>
+          <h1 className="mb-4 max-w-2xl text-4xl font-black tracking-[-1.8px] sm:text-5xl">
+            Produtos e serviços feitos por aqui.
           </h1>
 
-          <p className="mt-4 max-w-[610px] text-[13px] leading-6 text-[#DCE7F0]">
-            Encontre produtos e serviços oferecidos por produtores,
-            comerciantes, artesãos e profissionais da nossa comunidade.
+          <p className="max-w-2xl text-base leading-7 text-white/75">
+            Conheça produtos e serviços oferecidos por negócios locais e
+            encontre o que você precisa perto de você.
           </p>
         </div>
       </section>

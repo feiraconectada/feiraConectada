@@ -52,10 +52,9 @@ export default function Header() {
           <Image
             src="/assets/logo-feira-header.png"
             alt="Feira Conectada"
-            width={160}
-            height={54}
-            priority
-            className="h-auto w-[155px]"
+            width={180}
+            height={60}
+            className="h-12 w-auto"
           />
         </Link>
 

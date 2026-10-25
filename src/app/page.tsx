@@ -2,11 +2,17 @@ import Hero from "@/components/home/Hero";
 import Categories from "@/components/home/Categories";
 import AudienceSection from "@/components/home/AudienceSection";
 
-export default function Home() {
+import { getCategories } from "@/data/categories";
+
+export default async function Home() {
+  const categories = await getCategories();
+
   return (
     <>
       <Hero />
-      <Categories />
+
+      <Categories categories={categories} />
+
       <AudienceSection />
     </>
   );

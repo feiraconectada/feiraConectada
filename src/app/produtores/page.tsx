@@ -1,25 +1,27 @@
 import ProducersContent from "@/components/produtores/ProducersContent";
 
-import { producers } from "@/data/producers";
+import { getProducers } from "@/data/producers";
 
-export default function ProdutoresPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProducersPage() {
+  const producers = await getProducers();
+
   return (
     <>
-      <section className="hero-pattern relative overflow-hidden bg-[#0A355F] text-white">
-        <div className="relative z-10 mx-auto max-w-[1050px] px-6 pb-7 pt-10">
-          <p className="mb-2 text-[10px] font-black uppercase tracking-[1.4px] text-[#FF7246]">
-            Produtores locais
+      <section className="hero-pattern bg-[#0A355F] py-16 text-white">
+        <div className="mx-auto max-w-[1150px] px-6">
+          <p className="mb-3 text-[11px] font-black uppercase tracking-[1.5px] text-[#FF7246]">
+            Feira Conectada
           </p>
 
-          <h1 className="text-[42px] font-extrabold leading-none tracking-[-2px] sm:text-[54px]">
-            Gente que faz.
-            <br />
-            <span className="text-[#FF7246]">Perto de você.</span>
+          <h1 className="mb-4 max-w-2xl text-4xl font-black tracking-[-1.8px] sm:text-5xl">
+            Conheça quem faz acontecer por aqui.
           </h1>
 
-          <p className="mt-4 max-w-[600px] text-[13px] leading-6 text-[#DCE7F0]">
-            Conheça produtores, artesãos, comerciantes e prestadores de serviços
-            que movimentam nossa comunidade.
+          <p className="max-w-2xl text-base leading-7 text-white/75">
+            Descubra produtores, comerciantes e prestadores de serviços locais e
+            fortaleça a economia da nossa região.
           </p>
         </div>
       </section>
