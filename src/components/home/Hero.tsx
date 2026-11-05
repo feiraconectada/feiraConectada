@@ -1,7 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero() {
+interface HeroProps {
+  producerCount: number;
+}
+
+export default function Hero({ producerCount }: HeroProps) {
+  const businessText =
+    producerCount === 1
+      ? "negócio local conectado"
+      : "negócios locais conectados";
+
   return (
     <section className="hero-pattern relative overflow-hidden bg-[#0A355F] text-white">
       <div className="relative z-10 mx-auto grid min-h-[474px] max-w-[1050px] items-center gap-12 px-6 py-12 lg:grid-cols-[53%_47%] lg:py-0">
@@ -27,7 +36,9 @@ export default function Hero() {
               className="inline-flex h-[42px] items-center justify-center rounded-lg bg-[#FF5A1F] px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#EF4E12]"
             >
               Explorar vitrine
-              <span className="ml-2">→</span>
+              <span className="ml-2" aria-hidden="true">
+                →
+              </span>
             </Link>
 
             <Link
@@ -47,6 +58,7 @@ export default function Hero() {
               alt="Feira com frutas, verduras e produtos locais"
               fill
               priority
+              sizes="(max-width: 1024px) 94vw, 402px"
               className="object-cover"
             />
           </div>
@@ -54,13 +66,11 @@ export default function Hero() {
           {/* CARD FLUTUANTE */}
           <div className="absolute bottom-4 left-0 w-[165px] rounded-lg bg-[#F7F3EA] p-4 text-[#052F58] shadow-xl lg:bottom-[45px]">
             <strong className="block text-3xl font-extrabold leading-none">
-              86
+              {producerCount}
             </strong>
 
             <span className="mt-2 block text-[11px] font-extrabold leading-tight">
-              negócios locais
-              <br />
-              conectados
+              {businessText}
             </span>
           </div>
         </div>

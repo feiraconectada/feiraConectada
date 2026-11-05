@@ -2,6 +2,25 @@ import { prisma } from "@/lib/prisma";
 
 import type { Producer, ProducerDetails } from "@/types/producer";
 
+// ======================================================
+// QUANTIDADE DE PRODUTORES ATIVOS
+// Usado, por exemplo, na Home:
+// "6 negócios locais conectados"
+// ======================================================
+
+export async function getProducerCount(): Promise<number> {
+  return prisma.producer.count({
+    where: {
+      active: true,
+    },
+  });
+}
+
+// ======================================================
+// LISTAGEM DE PRODUTORES
+// Utilizado na página /produtores
+// ======================================================
+
 export async function getProducers(): Promise<Producer[]> {
   const producers = await prisma.producer.findMany({
     where: {
@@ -48,6 +67,11 @@ export async function getProducers(): Promise<Producer[]> {
       .sort((a, b) => a.name.localeCompare(b.name, "pt-BR")),
   }));
 }
+
+// ======================================================
+// PRODUTOR INDIVIDUAL
+// Utilizado em /produtores/[slug]
+// ======================================================
 
 export async function getProducerBySlug(
   slug: string,
