@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 
 import ProductCard from "@/components/vitrine/ProductCard";
 
+import FilterBar, { type SortOrder } from "@/components/shared/FilterBar";
+
 import type { Product } from "@/types/product";
 
 interface ProductsContentProps {
@@ -19,12 +21,43 @@ function normalizeText(value: string) {
     .trim();
 }
 
+// ======================================================
+// VALOR PSEUDOALEATÓRIO
+//
+// Gera sempre o mesmo valor para o mesmo ID.
+// Dessa forma:
+// - os itens ficam visualmente embaralhados;
+// - servidor e cliente geram a mesma ordem;
+// - não usamos Math.random();
+// - não temos hydration mismatch.
+// ======================================================
+
+function getRandomOrderValue(id: number) {
+  let value = id;
+
+  value = ((value >>> 16) ^ value) * 0x45d9f3b;
+  value = ((value >>> 16) ^ value) * 0x45d9f3b;
+  value = (value >>> 16) ^ value;
+
+  return value >>> 0;
+}
+
 export default function ProductsContent({
   products,
   initialCategory = "todos",
 }: ProductsContentProps) {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    initialCategory === "todos" ? [] : [initialCategory],
+  );
+
+  // "" = Aleatório
+  const [sortOrder, setSortOrder] = useState<SortOrder>("");
+
+  // ======================================================
+  // CATEGORIAS DISPONÍVEIS
+  // ======================================================
 
   const categories = useMemo(() => {
     const map = new Map<
@@ -47,20 +80,29 @@ export default function ProductsContent({
     );
   }, [products]);
 
+  // ======================================================
+  // FILTROS + ORDENAÇÃO
+  // ======================================================
+
   const filteredProducts = useMemo(() => {
     const normalizedSearch = normalizeText(search);
 
-    return products.filter((product) => {
+    const result = products.filter((product) => {
       const matchesCategory =
-        selectedCategory === "todos" ||
-        product.categorySlug === selectedCategory;
+        selectedCategories.length === 0 ||
+        selectedCategories.includes(product.categorySlug);
 
       const searchableText = normalizeText(
         [
           product.name,
+
           product.description ?? "",
+
           product.producer,
+
           product.categoryName,
+
+          product.type === "SERVICE" ? "serviço" : "produto",
         ].join(" "),
       );
 
@@ -69,71 +111,81 @@ export default function ProductsContent({
 
       return matchesCategory && matchesSearch;
     });
-  }, [products, search, selectedCategory]);
+
+    // ==================================================
+    // A → Z
+    // ==================================================
+
+    if (sortOrder === "asc") {
+      return [...result].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    }
+
+    // ==================================================
+    // Z → A
+    // ==================================================
+
+    if (sortOrder === "desc") {
+      return [...result].sort((a, b) => b.name.localeCompare(a.name, "pt-BR"));
+    }
+
+    // ==================================================
+    // ALEATÓRIO
+    // ==================================================
+
+    return [...result].sort(
+      (a, b) => getRandomOrderValue(a.id) - getRandomOrderValue(b.id),
+    );
+  }, [products, search, selectedCategories, sortOrder]);
+
+  // ======================================================
+  // MARCAR / DESMARCAR CATEGORIA
+  // ======================================================
+
+  function toggleCategory(slug: string) {
+    setSelectedCategories((current) => {
+      if (current.includes(slug)) {
+        return current.filter((categorySlug) => categorySlug !== slug);
+      }
+
+      return [...current, slug];
+    });
+  }
+
+  // ======================================================
+  // LIMPAR FILTROS
+  // ======================================================
+
+  function clearFilters() {
+    setSearch("");
+
+    setSelectedCategories([]);
+
+    setSortOrder("");
+  }
+
+  const hasActiveFilters =
+    search.trim() !== "" || selectedCategories.length > 0 || sortOrder !== "";
 
   return (
     <>
-      <section className="border-b border-[#D5DEE7] bg-white">
-        <div className="mx-auto max-w-[1150px] px-6 py-8">
-          <div className="flex flex-col gap-5">
-            <div>
-              <label
-                htmlFor="product-search"
-                className="mb-2 block text-sm font-bold text-[#052F58]"
-              >
-                Pesquisar produtos e serviços
-              </label>
-
-              <input
-                id="product-search"
-                type="search"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Busque por produto, serviço, produtor ou categoria..."
-                className="w-full rounded-xl border border-[#D5DEE7] bg-white px-4 py-3 text-sm text-[#052F58] outline-none transition placeholder:text-[#8293AA] focus:border-[#0A355F]"
-              />
-            </div>
-
-            <div>
-              <p className="mb-3 text-sm font-bold text-[#052F58]">
-                Categorias
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory("todos")}
-                  className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                    selectedCategory === "todos"
-                      ? "bg-[#0A355F] text-white"
-                      : "border border-[#D5DEE7] bg-white text-[#052F58] hover:border-[#0A355F]"
-                  }`}
-                >
-                  Todos
-                </button>
-
-                {categories.map((category) => (
-                  <button
-                    key={category.slug}
-                    type="button"
-                    onClick={() => setSelectedCategory(category.slug)}
-                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                      selectedCategory === category.slug
-                        ? "bg-[#0A355F] text-white"
-                        : "border border-[#D5DEE7] bg-white text-[#052F58] hover:border-[#0A355F]"
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FilterBar
+        searchId="product-search"
+        searchLabel="Pesquisar produtos e serviços"
+        searchPlaceholder="Produto, serviço, produtor ou categoria..."
+        search={search}
+        onSearchChange={setSearch}
+        categories={categories}
+        selectedCategories={selectedCategories}
+        onToggleCategory={toggleCategory}
+        sortOrder={sortOrder}
+        onSortChange={setSortOrder}
+        onClear={clearFilters}
+        hasActiveFilters={hasActiveFilters}
+      />
 
       <section className="bg-[#F7F3EA] py-12">
         <div className="mx-auto max-w-[1150px] px-6">
+          {/* QUANTIDADE */}
           <div className="mb-6">
             <p className="text-sm font-semibold text-[#5F7590]">
               {filteredProducts.length}{" "}
@@ -143,6 +195,7 @@ export default function ProductsContent({
             </p>
           </div>
 
+          {/* CARDS */}
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredProducts.map((product) => (
@@ -156,8 +209,17 @@ export default function ProductsContent({
               </h2>
 
               <p className="text-sm text-[#5F7590]">
-                Tente outra pesquisa ou selecione uma categoria diferente.
+                Tente alterar a pesquisa, selecionar outras categorias ou limpar
+                os filtros.
               </p>
+
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-5 rounded-lg bg-[#0A355F] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#082F55]"
+              >
+                Limpar filtros
+              </button>
             </div>
           )}
         </div>

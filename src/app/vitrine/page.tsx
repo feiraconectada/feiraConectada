@@ -40,11 +40,7 @@ export default async function VitrinePage({ searchParams }: VitrinePageProps) {
         </div>
       </section>
 
-      <ProductsContent
-        key={initialCategory}
-        products={products}
-        initialCategory={initialCategory}
-      />
+      <ProductsContent products={products} initialCategory={initialCategory} />
     </>
   );
 }

@@ -33,6 +33,12 @@ export async function getProducers(): Promise<Producer[]> {
           category: true,
         },
       },
+
+      _count: {
+        select: {
+          likes: true,
+        },
+      },
     },
 
     orderBy: {
@@ -54,6 +60,8 @@ export async function getProducers(): Promise<Producer[]> {
     location: producer.locationDescription ?? producer.address ?? null,
 
     phone: producer.phone,
+
+    likeCount: producer._count.likes,
 
     image: producer.imageUrl ?? "/assets/logo-feira-original.png",
 
@@ -109,6 +117,12 @@ export async function getProducerBySlug(
           name: "asc",
         },
       },
+
+      _count: {
+        select: {
+          likes: true,
+        },
+      },
     },
   });
 
@@ -132,6 +146,8 @@ export async function getProducerBySlug(
     phone: producer.phone,
 
     email: producer.email,
+
+    likeCount: producer._count.likes,
 
     image: producer.imageUrl ?? "/assets/logo-feira-original.png",
 

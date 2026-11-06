@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 
 import ProducerCard from "@/components/produtores/ProducerCard";
 
+import FilterBar, { type SortOrder } from "@/components/shared/FilterBar";
+
 import type { Producer } from "@/types/producer";
 
 interface ProducersContentProps {
@@ -18,9 +20,41 @@ function normalizeText(value: string) {
     .trim();
 }
 
+// ======================================================
+// EMBARALHAR PRODUTORES
+// ======================================================
+
+function shuffleProducers(producers: Producer[]) {
+  const shuffled = [...producers];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 export default function ProducersContent({ producers }: ProducersContentProps) {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("todos");
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  // Vazio = ordem aleatória
+  const [sortOrder, setSortOrder] = useState<SortOrder>("");
+
+  // ======================================================
+  // ORDEM ALEATÓRIA INICIAL
+  // ======================================================
+
+  const randomizedProducers = useMemo(() => {
+    return shuffleProducers(producers);
+  }, [producers]);
+
+  // ======================================================
+  // CATEGORIAS DISPONÍVEIS
+  // ======================================================
 
   const categories = useMemo(() => {
     const map = new Map<
@@ -35,6 +69,7 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
       producer.categories.forEach((category) => {
         map.set(category.slug, {
           name: category.name,
+
           slug: category.slug,
         });
       });
@@ -45,21 +80,33 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
     );
   }, [producers]);
 
+  // ======================================================
+  // FILTROS + ORDENAÇÃO
+  // ======================================================
+
   const filteredProducers = useMemo(() => {
     const normalizedSearch = normalizeText(search);
 
-    return producers.filter((producer) => {
+    /*
+     * Começamos sempre pela ordem
+     * aleatória criada quando a página
+     * foi carregada.
+     */
+    const result = randomizedProducers.filter((producer) => {
       const matchesCategory =
-        selectedCategory === "todos" ||
-        producer.categories.some(
-          (category) => category.slug === selectedCategory,
+        selectedCategories.length === 0 ||
+        producer.categories.some((category) =>
+          selectedCategories.includes(category.slug),
         );
 
       const searchableText = normalizeText(
         [
           producer.name,
+
           producer.description,
+
           producer.location ?? "",
+
           ...producer.categories.map((category) => category.name),
         ].join(" "),
       );
@@ -69,71 +116,92 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
 
       return matchesCategory && matchesSearch;
     });
-  }, [producers, search, selectedCategory]);
+
+    // A → Z
+    if (sortOrder === "asc") {
+      return [...result].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    }
+
+    // Z → A
+    if (sortOrder === "desc") {
+      return [...result].sort((a, b) => b.name.localeCompare(a.name, "pt-BR"));
+    }
+
+    // MAIS CURTIDOS
+    if (sortOrder === "likes") {
+      return [...result].sort((a, b) => {
+        const likeDifference = b.likeCount - a.likeCount;
+
+        /*
+         * Caso dois produtores
+         * tenham a mesma quantidade
+         * de curtidas, usamos
+         * ordem alfabética.
+         */
+        if (likeDifference === 0) {
+          return a.name.localeCompare(b.name, "pt-BR");
+        }
+
+        return likeDifference;
+      });
+    }
+
+    // Sem ordenação selecionada:
+    // mantém ordem aleatória
+    return result;
+  }, [randomizedProducers, search, selectedCategories, sortOrder]);
+
+  // ======================================================
+  // MARCAR / DESMARCAR CATEGORIA
+  // ======================================================
+
+  function toggleCategory(slug: string) {
+    setSelectedCategories((current) => {
+      if (current.includes(slug)) {
+        return current.filter((categorySlug) => categorySlug !== slug);
+      }
+
+      return [...current, slug];
+    });
+  }
+
+  // ======================================================
+  // LIMPAR FILTROS
+  // ======================================================
+
+  function clearFilters() {
+    setSearch("");
+
+    setSelectedCategories([]);
+
+    // Volta para aleatório
+    setSortOrder("");
+  }
+
+  const hasActiveFilters =
+    search.trim() !== "" || selectedCategories.length > 0 || sortOrder !== "";
 
   return (
     <>
-      <section className="border-b border-[#D5DEE7] bg-white">
-        <div className="mx-auto max-w-[1150px] px-6 py-8">
-          <div className="flex flex-col gap-5">
-            <div>
-              <label
-                htmlFor="producer-search"
-                className="mb-2 block text-sm font-bold text-[#052F58]"
-              >
-                Pesquisar produtores
-              </label>
-
-              <input
-                id="producer-search"
-                type="search"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Busque por nome, categoria ou localização..."
-                className="w-full rounded-xl border border-[#D5DEE7] bg-white px-4 py-3 text-sm text-[#052F58] outline-none transition placeholder:text-[#8293AA] focus:border-[#0A355F]"
-              />
-            </div>
-
-            <div>
-              <p className="mb-3 text-sm font-bold text-[#052F58]">
-                Categorias
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory("todos")}
-                  className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                    selectedCategory === "todos"
-                      ? "bg-[#0A355F] text-white"
-                      : "border border-[#D5DEE7] bg-white text-[#052F58] hover:border-[#0A355F]"
-                  }`}
-                >
-                  Todos
-                </button>
-
-                {categories.map((category) => (
-                  <button
-                    key={category.slug}
-                    type="button"
-                    onClick={() => setSelectedCategory(category.slug)}
-                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                      selectedCategory === category.slug
-                        ? "bg-[#0A355F] text-white"
-                        : "border border-[#D5DEE7] bg-white text-[#052F58] hover:border-[#0A355F]"
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FilterBar
+        searchId="producer-search"
+        searchLabel="Pesquisar produtores"
+        searchPlaceholder="Nome, categoria ou localização..."
+        search={search}
+        onSearchChange={setSearch}
+        categories={categories}
+        selectedCategories={selectedCategories}
+        onToggleCategory={toggleCategory}
+        sortOrder={sortOrder}
+        onSortChange={setSortOrder}
+        onClear={clearFilters}
+        hasActiveFilters={hasActiveFilters}
+        showLikeSort
+      />
 
       <section className="bg-[#F7F3EA] py-12">
         <div className="mx-auto max-w-[1150px] px-6">
+          {/* QUANTIDADE */}
           <div className="mb-6">
             <p className="text-sm font-semibold text-[#5F7590]">
               {filteredProducers.length}{" "}
@@ -143,6 +211,7 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
             </p>
           </div>
 
+          {/* CARDS */}
           {filteredProducers.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredProducers.map((producer) => (
@@ -156,9 +225,17 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
               </h2>
 
               <p className="text-sm text-[#5F7590]">
-                Tente pesquisar por outro nome ou selecionar uma categoria
-                diferente.
+                Tente alterar a pesquisa, selecionar outras categorias ou limpar
+                os filtros.
               </p>
+
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-5 rounded-lg bg-[#0A355F] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#082F55]"
+              >
+                Limpar filtros
+              </button>
             </div>
           )}
         </div>

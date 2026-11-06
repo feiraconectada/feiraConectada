@@ -15,6 +15,8 @@ export interface Producer {
   phone: string | null;
   image: string;
 
+  likeCount: number;
+
   categories: ProducerCategory[];
 }
 

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ProducerLikeButton from "@/components/produtores/ProducerLikeButton";
+
 import type { Producer } from "@/types/producer";
 
 interface ProducerCardProps {
@@ -13,12 +15,12 @@ export default function ProducerCard({ producer }: ProducerCardProps) {
     .join(" • ");
 
   return (
-    <Link
-      href={`/produtores/${producer.slug}`}
-      className="group block h-full"
-      aria-label={`Ver produtor ${producer.name}`}
-    >
-      <article className="h-full overflow-hidden rounded-2xl border border-[#D5DEE7] bg-white shadow-sm transition duration-300 group-hover:-translate-y-1 group-hover:border-[#0A355F] group-hover:shadow-md">
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#D5DEE7] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#0A355F] hover:shadow-md">
+      <Link
+        href={`/produtores/${producer.slug}`}
+        className="block flex-1"
+        aria-label={`Ver produtor ${producer.name}`}
+      >
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8F2F5]">
           <Image
             src={producer.image}
@@ -33,7 +35,7 @@ export default function ProducerCard({ producer }: ProducerCardProps) {
           </div>
         </div>
 
-        <div className="p-5">
+        <div className="p-5 pb-2">
           {categoryNames && (
             <p className="mb-2 text-[11px] font-black uppercase tracking-[1.2px] text-[#FF5A1F]">
               {categoryNames}
@@ -49,18 +51,29 @@ export default function ProducerCard({ producer }: ProducerCardProps) {
           </p>
 
           {producer.location && (
-            <div className="mb-4 flex items-start gap-2 text-sm text-[#5F7590]">
+            <div className="flex items-start gap-2 text-sm text-[#5F7590]">
               <span aria-hidden="true">📍</span>
 
               <span>{producer.location}</span>
             </div>
           )}
-
-          <span className="text-sm font-extrabold text-[#0A355F] transition group-hover:text-[#FF5A1F]">
-            Ver produtor →
-          </span>
         </div>
-      </article>
-    </Link>
+      </Link>
+
+      <div className="flex items-center justify-between gap-4 px-5 pb-5 pt-3">
+        <Link
+          href={`/produtores/${producer.slug}`}
+          className="text-sm font-extrabold text-[#0A355F] transition hover:text-[#FF5A1F]"
+        >
+          Ver produtor →
+        </Link>
+
+        <ProducerLikeButton
+          producerId={producer.id}
+          producerName={producer.name}
+          initialCount={producer.likeCount}
+        />
+      </div>
+    </article>
   );
 }
