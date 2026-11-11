@@ -4,8 +4,6 @@ import type { Producer, ProducerDetails } from "@/types/producer";
 
 // ======================================================
 // QUANTIDADE DE PRODUTORES ATIVOS
-// Usado, por exemplo, na Home:
-// "6 negócios locais conectados"
 // ======================================================
 
 export async function getProducerCount(): Promise<number> {
@@ -18,7 +16,6 @@ export async function getProducerCount(): Promise<number> {
 
 // ======================================================
 // LISTAGEM DE PRODUTORES
-// Utilizado na página /produtores
 // ======================================================
 
 export async function getProducers(): Promise<Producer[]> {
@@ -78,7 +75,6 @@ export async function getProducers(): Promise<Producer[]> {
 
 // ======================================================
 // PRODUTOR INDIVIDUAL
-// Utilizado em /produtores/[slug]
 // ======================================================
 
 export async function getProducerBySlug(
@@ -116,6 +112,25 @@ export async function getProducerBySlug(
         orderBy: {
           name: "asc",
         },
+      },
+
+      // ==================================================
+      // GALERIA
+      // ==================================================
+
+      galleryImages: {
+        where: {
+          active: true,
+        },
+
+        orderBy: [
+          {
+            position: "asc",
+          },
+          {
+            id: "asc",
+          },
+        ],
       },
 
       _count: {
@@ -203,5 +218,19 @@ export async function getProducerBySlug(
 
         categorySlug: listing.category.slug,
       })),
+
+    // ==================================================
+    // GALERIA
+    // ==================================================
+
+    galleryImages: producer.galleryImages.map((galleryImage) => ({
+      id: galleryImage.id,
+
+      image: galleryImage.imageUrl,
+
+      caption: galleryImage.caption,
+
+      position: galleryImage.position,
+    })),
   };
 }

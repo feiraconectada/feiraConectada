@@ -51,6 +51,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
     <>
       <ProducerViewTracker producerId={producer.id} />
 
+      {/* VOLTAR */}
       <section className="bg-[#F7F3EA] py-6">
         <div className="mx-auto max-w-[1150px] px-6">
           <Link
@@ -62,6 +63,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
         </div>
       </section>
 
+      {/* INFORMAÇÕES PRINCIPAIS */}
       <section className="bg-white">
         <div className="mx-auto grid max-w-[1150px] gap-10 px-6 py-12 lg:grid-cols-[420px_1fr]">
           <div>
@@ -78,6 +80,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
           </div>
 
           <div className="flex flex-col justify-center">
+            {/* CATEGORIAS */}
             <div className="mb-4 flex flex-wrap gap-2">
               {producer.categories.map((category) => (
                 <span
@@ -89,14 +92,17 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
               ))}
             </div>
 
+            {/* NOME */}
             <h1 className="mb-4 text-4xl font-black tracking-[-1.5px] text-[#052F58] sm:text-5xl">
               {producer.name}
             </h1>
 
+            {/* DESCRIÇÃO */}
             <p className="mb-6 max-w-2xl text-base leading-7 text-[#5F7590]">
               {producer.description}
             </p>
 
+            {/* LOCALIZAÇÃO */}
             {producer.location && (
               <div className="mb-6 flex items-start gap-3 rounded-xl bg-[#F7F3EA] p-4">
                 <span className="text-lg" aria-hidden="true">
@@ -115,6 +121,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
               </div>
             )}
 
+            {/* CONTATO */}
             <div className="flex flex-wrap gap-3">
               {whatsappUrl && (
                 <TrackedExternalLink
@@ -141,6 +148,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
         </div>
       </section>
 
+      {/* FORMAS DE COMERCIALIZAÇÃO */}
       {producer.commercializationMethods.length > 0 && (
         <section className="border-y border-[#D5DEE7] bg-[#E8F2F5]">
           <div className="mx-auto max-w-[1150px] px-6 py-10">
@@ -166,6 +174,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
         </section>
       )}
 
+      {/* VITRINE */}
       <section className="bg-[#F7F3EA] py-14">
         <div className="mx-auto max-w-[1150px] px-6">
           <div className="mb-8">
@@ -234,8 +243,58 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
         </div>
       </section>
 
-      {producer.socialLinks.length > 0 && (
+      {/* GALERIA */}
+      {producer.galleryImages.length > 0 && (
         <section className="bg-white py-14">
+          <div className="mx-auto max-w-[1150px] px-6">
+            <div className="mb-8">
+              <p className="mb-2 text-[11px] font-black uppercase tracking-[1.3px] text-[#FF5A1F]">
+                Conheça mais
+              </p>
+
+              <h2 className="text-3xl font-black tracking-[-1px] text-[#052F58]">
+                Galeria
+              </h2>
+
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#5F7590]">
+                Veja mais fotos dos produtos e do trabalho deste negócio local.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {producer.galleryImages.map((galleryImage) => (
+                <figure
+                  key={galleryImage.id}
+                  className="group overflow-hidden rounded-2xl border border-[#D5DEE7] bg-[#E8F2F5] shadow-sm"
+                >
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image
+                      src={galleryImage.image}
+                      alt={
+                        galleryImage.caption ??
+                        `Foto da galeria de ${producer.name}`
+                      }
+                      fill
+                      sizes="(max-width: 768px) 50vw, 33vw"
+                      className="object-cover transition duration-300 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {galleryImage.caption && (
+                    <figcaption className="bg-white px-4 py-3 text-sm font-semibold text-[#5F7590]">
+                      {galleryImage.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* REDES SOCIAIS */}
+      {producer.socialLinks.length > 0 && (
+        <section className="border-t border-[#D5DEE7] bg-[#F7F3EA] py-14">
           <div className="mx-auto max-w-[1150px] px-6">
             <p className="mb-2 text-[11px] font-black uppercase tracking-[1.3px] text-[#FF5A1F]">
               Acompanhe
@@ -257,7 +316,7 @@ export default async function ProducerPage({ params }: ProducerPageProps) {
                     producerId={producer.id}
                     href={socialLink.url}
                     metric={isWhatsapp ? "whatsapp_click" : "social_click"}
-                    className="rounded-xl border border-[#D5DEE7] bg-[#F7F3EA] px-5 py-3 text-sm font-extrabold text-[#052F58] transition hover:border-[#0A355F] hover:bg-white"
+                    className="rounded-xl border border-[#D5DEE7] bg-white px-5 py-3 text-sm font-extrabold text-[#052F58] transition hover:border-[#0A355F] hover:bg-[#E8F2F5]"
                   >
                     {socialLink.network}
                   </TrackedExternalLink>

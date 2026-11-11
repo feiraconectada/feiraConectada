@@ -36,11 +36,29 @@ export interface ProducerListing {
   id: number;
   name: string;
   description: string | null;
+
   type: "PRODUCT" | "SERVICE";
+
   price: number | null;
+
   image: string;
+
   categoryName: string;
   categorySlug: string;
+}
+
+// ======================================================
+// GALERIA
+// ======================================================
+
+export interface ProducerGalleryImage {
+  id: number;
+
+  image: string;
+
+  caption: string | null;
+
+  position: number;
 }
 
 export interface ProducerDetails extends Producer {
@@ -50,7 +68,10 @@ export interface ProducerDetails extends Producer {
   address: string | null;
 
   commercializationMethods: ProducerCommercializationMethod[];
+
   socialLinks: ProducerSocialLink[];
 
   listings: ProducerListing[];
+
+  galleryImages: ProducerGalleryImage[];
 }

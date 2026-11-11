@@ -21,19 +21,21 @@ function normalizeText(value: string) {
 }
 
 // ======================================================
-// EMBARALHAR PRODUTORES
+// VALOR PSEUDOALEATÓRIO ESTÁVEL
+//
+// O mesmo produtor sempre gera o mesmo valor.
+// Isso evita Math.random() durante a renderização
+// e elimina problemas de hydration.
 // ======================================================
 
-function shuffleProducers(producers: Producer[]) {
-  const shuffled = [...producers];
+function getRandomOrderValue(id: number) {
+  let value = id;
 
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+  value = ((value >>> 16) ^ value) * 0x45d9f3b;
+  value = ((value >>> 16) ^ value) * 0x45d9f3b;
+  value = (value >>> 16) ^ value;
 
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-
-  return shuffled;
+  return value >>> 0;
 }
 
 export default function ProducersContent({ producers }: ProducersContentProps) {
@@ -41,16 +43,8 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  // Vazio = ordem aleatória
+  // "" = Aleatório
   const [sortOrder, setSortOrder] = useState<SortOrder>("");
-
-  // ======================================================
-  // ORDEM ALEATÓRIA INICIAL
-  // ======================================================
-
-  const randomizedProducers = useMemo(() => {
-    return shuffleProducers(producers);
-  }, [producers]);
 
   // ======================================================
   // CATEGORIAS DISPONÍVEIS
@@ -69,7 +63,6 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
       producer.categories.forEach((category) => {
         map.set(category.slug, {
           name: category.name,
-
           slug: category.slug,
         });
       });
@@ -87,12 +80,7 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
   const filteredProducers = useMemo(() => {
     const normalizedSearch = normalizeText(search);
 
-    /*
-     * Começamos sempre pela ordem
-     * aleatória criada quando a página
-     * foi carregada.
-     */
-    const result = randomizedProducers.filter((producer) => {
+    const result = producers.filter((producer) => {
       const matchesCategory =
         selectedCategories.length === 0 ||
         producer.categories.some((category) =>
@@ -117,27 +105,30 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
       return matchesCategory && matchesSearch;
     });
 
+    // ==================================================
     // A → Z
+    // ==================================================
+
     if (sortOrder === "asc") {
       return [...result].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
     }
 
+    // ==================================================
     // Z → A
+    // ==================================================
+
     if (sortOrder === "desc") {
       return [...result].sort((a, b) => b.name.localeCompare(a.name, "pt-BR"));
     }
 
+    // ==================================================
     // MAIS CURTIDOS
+    // ==================================================
+
     if (sortOrder === "likes") {
       return [...result].sort((a, b) => {
         const likeDifference = b.likeCount - a.likeCount;
 
-        /*
-         * Caso dois produtores
-         * tenham a mesma quantidade
-         * de curtidas, usamos
-         * ordem alfabética.
-         */
         if (likeDifference === 0) {
           return a.name.localeCompare(b.name, "pt-BR");
         }
@@ -146,10 +137,14 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
       });
     }
 
-    // Sem ordenação selecionada:
-    // mantém ordem aleatória
-    return result;
-  }, [randomizedProducers, search, selectedCategories, sortOrder]);
+    // ==================================================
+    // ALEATÓRIO
+    // ==================================================
+
+    return [...result].sort(
+      (a, b) => getRandomOrderValue(a.id) - getRandomOrderValue(b.id),
+    );
+  }, [producers, search, selectedCategories, sortOrder]);
 
   // ======================================================
   // MARCAR / DESMARCAR CATEGORIA
@@ -174,7 +169,6 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
 
     setSelectedCategories([]);
 
-    // Volta para aleatório
     setSortOrder("");
   }
 
@@ -201,7 +195,6 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
 
       <section className="bg-[#F7F3EA] py-12">
         <div className="mx-auto max-w-[1150px] px-6">
-          {/* QUANTIDADE */}
           <div className="mb-6">
             <p className="text-sm font-semibold text-[#5F7590]">
               {filteredProducers.length}{" "}
@@ -211,7 +204,6 @@ export default function ProducersContent({ producers }: ProducersContentProps) {
             </p>
           </div>
 
-          {/* CARDS */}
           {filteredProducers.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredProducers.map((producer) => (

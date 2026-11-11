@@ -82,6 +82,7 @@ model Producer {
   socialLinks              ProducerSocialLink[]
   dailyMetrics             ProducerDailyMetric[]
   likes                    ProducerLike[]
+  galleryImages            ProducerGalleryImage[]
 
   @@map("producer")
 }
@@ -136,6 +137,27 @@ model ProducerLike {
 
   @@id([producerId, visitorId])
   @@map("producer_like")
+}
+
+// ======================================================
+// GALERIA DO PRODUTOR
+// ======================================================
+
+model ProducerGalleryImage {
+  id         Int     @id @default(autoincrement())
+  producerId Int     @map("producer_id")
+  imageUrl   String  @map("image_url") @db.Text
+  caption    String? @db.VarChar(180)
+  position   Int     @default(0)
+  active     Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  producer Producer @relation(fields: [producerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([producerId])
+  @@map("producer_gallery_image")
 }
 
 model Listing {
