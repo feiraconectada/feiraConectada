@@ -21,20 +21,23 @@ export default function ProducerCard({ producer }: ProducerCardProps) {
         className="block flex-1"
         aria-label={`Ver produtor ${producer.name}`}
       >
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#E8F2F5]">
+        {/* IMAGEM */}
+        <div className="relative aspect-square w-full overflow-hidden bg-[#F7F3EA]">
           <Image
             src={producer.image}
             alt={producer.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
           />
 
+          {/* BOTÃO NO HOVER */}
           <div className="absolute inset-x-4 bottom-4 translate-y-2 rounded-lg bg-[#052F58]/95 px-4 py-2.5 text-center text-sm font-bold text-white opacity-0 shadow-lg transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
             Clique para ver produtor
           </div>
         </div>
 
+        {/* CONTEÚDO */}
         <div className="p-5 pb-2">
           {categoryNames && (
             <p className="mb-2 text-[11px] font-black uppercase tracking-[1.2px] text-[#FF5A1F]">
@@ -60,6 +63,7 @@ export default function ProducerCard({ producer }: ProducerCardProps) {
         </div>
       </Link>
 
+      {/* RODAPÉ */}
       <div className="flex items-center justify-between gap-4 px-5 pb-5 pt-3">
         <Link
           href={`/produtores/${producer.slug}`}
